@@ -1,0 +1,26 @@
+{
+    "name": "make-all/pharavel",
+    "description": "Phorge access from Laravel",
+    "license": "MIT",
+    "homepage":  "https://github.com/make-all/pharavel",
+    "readme": "README.md",
+    "authors": [{
+        "name": "Jason Rumney",
+        "homepage": "https://github.com/make-all"
+    }],
+    "support": {
+        "issues": "https://github.com/make-all/pharavel/issues",
+        "source":  "https://github.com/make-all/pharavel",
+    },
+    "require": {
+        "guzzlehttp/guzzle": "^7.0.1",
+        "laravel/framework": "^8.0",
+        "laravel/socialite": "^5.0",
+        "socialiteproviders/manager": "^3.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Pharavel": "src/"
+        }
+    }
+}
