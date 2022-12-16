@@ -28,12 +28,14 @@ class User extends SocialiteUser implements Authenticatable
         return "";
     }
 
-    public function setRememberToken(string $value)
+    public function setRememberToken($value)
     {
+        //
     }
 
     public function getRememberTokenName()
     {
-        return "";
+        // Give an actual name in case it is used as a key internally in Laravel
+        return "remember_token";
     }
 }
