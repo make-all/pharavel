@@ -2,7 +2,6 @@
 
 namespace Pharavel\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Routing\Controller;
@@ -15,7 +14,7 @@ class LoginController extends Controller
 	 *
 	 * @return Illuminate\Http\Response
 	 */
-	public function redirectToPhorge(Request $request)
+	public function redirectToPhorge()
 	{
 		return Socialite::driver('phorge')->redirect();
 	}
@@ -25,9 +24,10 @@ class LoginController extends Controller
 	 *
 	 * return Illuminate\Http\Response
 	 */
-	public function handlePhorgeCallback(Request $request)
+	public function handlePhorgeCallback()
 	{
-		$user = Socialite::driver('phorge')->user();
+	    $user = Socialite::driver('phorge')->user();
+
         Auth::login($user);
         Session::regenerate();
 		return redirect()->intended('/');

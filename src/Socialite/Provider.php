@@ -3,7 +3,7 @@ namespace Pharavel\Socialite;
 
 use Illuminate\Http\Request;
 use Laravel\Socialite\Two\AbstractProvider;
-use SocialiteProviders\Manager\OAuth2\User;
+use Pharavel\Socialite\User;
 
 class Provider extends AbstractProvider
 {
