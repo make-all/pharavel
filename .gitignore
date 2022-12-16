@@ -1,0 +1,8 @@
+*.cache
+*.log
+/.fleet
+/.idea
+/.vscode
+*~
+*.bak
+\#*
