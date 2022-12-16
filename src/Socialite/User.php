@@ -28,11 +28,11 @@ class User extends SocialiteUser implements Authenticatable
         return "";
     }
 
-    public function setRemeberToken(string $value)
+    public function setRememberToken(string $value)
     {
     }
 
-    public function getRemeberTokenName()
+    public function getRememberTokenName()
     {
         return "";
     }
