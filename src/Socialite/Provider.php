@@ -55,7 +55,7 @@ class Provider extends AbstractProvider
                     'access_token' => $token,
                 ],
         ]);
-        return Arr.get(json_decode($response->getBody(), true), 'result');
+        return Arr::get(json_decode($response->getBody(), true), 'result');
     }
 
     /**
