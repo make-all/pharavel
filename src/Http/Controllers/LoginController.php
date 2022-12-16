@@ -28,7 +28,7 @@ class LoginController extends Controller
 	{
 		$user = Socialite::driver('phorge')->user();
         Auth::login($user);
-        // Session::regenerate();
+        Session::regenerate();
 		return redirect()->intended('/');
 	}
 }
