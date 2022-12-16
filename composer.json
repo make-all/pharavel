@@ -10,7 +10,7 @@
     }],
     "support": {
         "issues": "https://github.com/make-all/pharavel/issues",
-        "source":  "https://github.com/make-all/pharavel",
+        "source":  "https://github.com/make-all/pharavel"
     },
     "require": {
         "guzzlehttp/guzzle": "^7.0.1",
