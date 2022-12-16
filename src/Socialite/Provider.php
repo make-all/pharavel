@@ -2,6 +2,7 @@
 namespace Pharavel\Socialite;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Laravel\Socialite\Two\AbstractProvider;
 use Pharavel\Socialite\User;
 
