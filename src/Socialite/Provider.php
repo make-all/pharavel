@@ -1,11 +1,10 @@
 <?php
 namespace Pharavel\Socialite;
 
-use Laravel\Socialite\Two\ProviderInterface;
-use SocialiteProviders\Manager\OAuth2\AbstractProvider;
+use Laravel\Socialite\Two\AbstractProvider;
 use SocialiteProviders\Manager\OAuth2\User;
 
-class Provider extends AbstractProvider implements ProviderInterface
+class Provider extends AbstractProvider
 {
     /**
      * Unique Provider Identifier.
@@ -67,16 +66,6 @@ class Provider extends AbstractProvider implements ProviderInterface
             'name'     => $user['result']['realName'],
             'email'    => $user['result']['primaryEmail'],
             'avatar'   => $user['result']['image'],
-        ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getTokenFields($code)
-    {
-        return array_merge(parent::getTokenFields($code), [
-            'grant_type' => 'authorization_code'
         ]);
     }
 }
