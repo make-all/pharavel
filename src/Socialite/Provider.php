@@ -1,6 +1,7 @@
 <?php
 namespace Pharavel\Socialite;
 
+use Illuminate\Http\Request;
 use Laravel\Socialite\Two\AbstractProvider;
 use SocialiteProviders\Manager\OAuth2\User;
 
