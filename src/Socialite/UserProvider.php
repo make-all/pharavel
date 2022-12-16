@@ -2,9 +2,10 @@
 
 namespace Pharavel\Socialite;
 
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider as BaseProvider;
-use Socialite;
-use AuthenticationException;
+use Laravel\Socialite\Facades\Socialite;
 
 class UserProvider implements BaseProvider
 {
