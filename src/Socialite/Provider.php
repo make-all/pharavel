@@ -18,8 +18,9 @@ class Provider extends AbstractProvider
 
     protected $phorge_url;
 
-    public function __construct()
+    public function __construct(Request $request, $clientId, $clientSecret, $redirectUrl, $guzzle = [])
     {
+        parent::__construct($request, $clientId, $clientSecret, $redirectUrl, $guzzle);
         $this->phorge_url = env('PHORGE_URL');
     }
 
