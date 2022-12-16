@@ -11,19 +11,25 @@ class Provider extends AbstractProvider implements ProviderInterface
      * Unique Provider Identifier.
      */
     const IDENTIFIER = 'Phorge';
-    const PHORGE_URL = env('PHORGE_URL');
 
     /**
      * {@inheritdoc}
      */
     protected $scopes = ['whoami'];
 
+    protected $phorge_url;
+
+    public function __construct()
+    {
+        $this->phorge_url = env('PHORGE_URL');
+    }
+
     /**
      * {@inheritdoc}
      */
     protected function getAuthUrl($state)
     {
-        return $this->buildAuthUrlFromBase(PHORGE_URL.'oauthserver/auth/', $state);
+        return $this->buildAuthUrlFromBase($this->phorge_url.'oauthserver/auth/', $state);
     }
 
     /**
@@ -31,7 +37,7 @@ class Provider extends AbstractProvider implements ProviderInterface
      */
     protected function getTokenUrl()
     {
-        return PHORGE_URL.'oauthserver/token/';
+        return $this->phorge_url.'oauthserver/token/';
     }
 
     /**
@@ -40,7 +46,7 @@ class Provider extends AbstractProvider implements ProviderInterface
     protected function getUserByToken($token)
     {
         $response = $this->getHttpClient()->get(
-            PHORGE_URL.'api/user.whoami',
+            $this->phorge_url.'api/user.whoami',
             [
                 'query' => [
                     'access_token' => $token,
