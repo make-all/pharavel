@@ -54,7 +54,7 @@ class Provider extends AbstractProvider
                 ],
         ]);
         $json = json_decode($response->getBody(), true);
-        \Log::debug(print_r($json, true));
+        \Log::debug("$token: ".print_r($json, true));
         return $json;
     }
 
