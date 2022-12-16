@@ -53,7 +53,7 @@ class Provider extends AbstractProvider
                     'access_token' => $token,
                 ],
         ]);
-
+        \Log::debug(print_r($response, true));
         return json_decode($response->getBody(), true);
     }
 
