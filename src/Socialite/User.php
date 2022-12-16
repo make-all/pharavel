@@ -9,12 +9,12 @@ class User extends SocialiteUser implements Authenticatable
 {
     public function getAuthIdentifierName()
     {
-        return $this->getNickname();
+        return "access_token";
     }
 
     public function getAuthIdentifier()
     {
-        return $this->getId();
+        return $this->token;
     }
 
     public function getAuthPassword()
