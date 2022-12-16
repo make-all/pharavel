@@ -46,6 +46,8 @@ class Provider extends AbstractProvider
      */
     protected function getUserByToken($token)
     {
+        \Log::debug("getUserByToken($token)");
+        \Log::debug("credentialsResponseBody=".$this->credentialsResponseBody);
         $response = $this->getHttpClient()->get(
             $this->phorge_url.'api/user.whoami',
             [
@@ -53,9 +55,7 @@ class Provider extends AbstractProvider
                     'access_token' => $token,
                 ],
         ]);
-        $json = json_decode($response->getBody(), true);
-        \Log::debug("$token: ".print_r($json, true));
-        return $json;
+        return json_decode($response->getBody(), true);
     }
 
     /**
