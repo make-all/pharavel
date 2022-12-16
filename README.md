@@ -70,3 +70,6 @@ the following steps are required.
 ],
 ```
 where the redirect URL is replaced by a URL within your app to accept logins.
+
+6. Add the two routes as described in https://laravel.com/docs/9.x/socialite#authentication (the callback is the same as the redirect URL above.
+

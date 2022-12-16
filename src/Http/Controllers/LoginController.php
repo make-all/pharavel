@@ -5,6 +5,7 @@ namespace Pharavel\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Routing\Controller;
 use Socialite;
 
 class LoginController extends Controller
