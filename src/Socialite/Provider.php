@@ -47,7 +47,6 @@ class Provider extends AbstractProvider
      */
     protected function getUserByToken($token)
     {
-        \Log::debug("getUserByToken($token)");
         $response = $this->getHttpClient()->get(
             $this->phorge_url.'api/user.whoami',
             [
