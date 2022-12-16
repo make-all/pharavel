@@ -27,7 +27,6 @@ class LoginController extends Controller
 	public function handlePhorgeCallback()
 	{
 	    $user = Socialite::driver('phorge')->user();
-        \Log::debug("User: $user");
         Auth::login($user);
         Session::regenerate();
 		return redirect()->intended('/');
