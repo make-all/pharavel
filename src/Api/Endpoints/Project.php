@@ -35,7 +35,7 @@ class Project
     }
 
     /**
-     * Check if the currently logged in user is a member of the named project
+     * Check if the current user is a member of the named project
      *
      * This assumes that the user nickname is the same as their username in
      * Phorge.  This assumption is valid if you use OAuth2 login from this
@@ -48,6 +48,23 @@ class Project
     {
         $uid = Auth::user()->nickname;
         $projects = $this->search(['name' => $project, 'members' => [$uid]]);
+        return count($projects) > 0;
+    }
+
+    /**
+     * Check if the current user is a member of the specified project
+     *
+     * This assumes that the user nickname is the same as their username in
+     * Phorge.  This assumption is valid if you use OAuth2 login from this
+     * package, but if you use alternative login methods, you will need to
+     * ensure that the usernames match.
+     *
+     * @param $project the phid of the project to check
+     */
+    public function isMemberOfPhid($project)
+    {
+        $uid = Auth::user()->nickname;
+        $projects = $this->search(['phids' => [$project], 'members' => [$uid]]);
         return count($projects) > 0;
     }
 }
