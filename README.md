@@ -53,16 +53,42 @@ the following steps are required.
 4. Set `PHORGE_CALLBACK_URL` in your .env to a callback URL within your application for accepting logins.
 5. Add the following into app/Providers/EventServiceProvider.php
 
-```
+```php
+...
+
     protected $listen = [
         'SocialiteProviders\Manager\SocialiteWasCalled' => [
           'Pharavel\Socialite\PhorgeExtendSocialite@handle'
         ],
     ];
-```
-5. Add the following into config/services.php:
 
+...
 ```
+
+6. Add the following into app/Providers/AppServiceProvider.php
+
+```php
+use Laravel\Socialite\Contracts\Factory;
+use Pharavel\Socialite\Provider as PhorgeSocialiteProvider
+
+...
+
+    public function boot()
+    {
+        $socialite = $this->app->make(Factory::class);
+
+        $socialite->extend('phorge', function() use ($socialite) {
+            $config = config('services.phorge');
+            return $socialite->buildProvider(PhorgeSocialiteProvider::class, $config);
+        });
+    }
+
+...
+```
+
+7. Add the following into config/services.php:
+
+```php
 'phorge' => [
     'client_id' => env('PHORGE_CLIENT_ID'),
     'client_secret' => env('PHORGE_CLIENT_SECRET'),
@@ -71,5 +97,5 @@ the following steps are required.
 ```
 where the redirect URL is replaced by a URL within your app to accept logins.
 
-6. Add the two routes as described in https://laravel.com/docs/9.x/socialite#authentication (the callback is the same as the redirect URL above.
+8. Add the two routes as described in https://laravel.com/docs/9.x/socialite#authentication (the callback is the same as the redirect URL above.
 
