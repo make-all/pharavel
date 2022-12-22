@@ -96,8 +96,8 @@ use Pharavel\Socialite\Provider as PhorgeSocialiteProvider
 6. Routes for `/auth/phorge/redirect` and `/auth/phorge/callback` are predefined
    by this package.  For convenience, the redirect route has a name
    of "phorgeLogin" predefined so you can link a "Login with Phorge" button
-   to it. If you want automatic login (always via Phorge, no other
-   authentication methods), then you should define a login route with a
+   to it easily. If you want automatic login (always via Phorge, no other
+   authentication methods), then you should define a route with a
    name of "login" assigned, using the redirectToPhorge method of
    Pharavel\Socialite\LoginController.
 
