@@ -1,6 +1,6 @@
 <?php
 
-namespace Pharavel\Http\Controllers;
+namespace Pharavel\Socialite;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;

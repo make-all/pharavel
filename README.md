@@ -2,26 +2,17 @@
 
 Access Phorge (or Phabricator) resources from Laravel applications.
 
+Currently this provides minimal access to the Conduit API, focused on
+the use case of authentication and authorization of users based on
+project membership.
+
+
 ## Usage
 
 1. Define the following variables in your .env file.
 
 - PHORGE_URL = the base URL of your Phorge or Phabricator installation
 - PHORGE_TOKEN = a Conduit API token for a Bot account that has the required access to the objects you want to work with.
-
-2. Add the following to your config/app.php file
-
-```php
-return [
-
-    ...
-    
-    'phorge_url' => env('PHORGE_URL'),
-    'phorge_token' => env('PHORGE_TOKEN'),
-    
-    ...
-];
-```
 
 ## Supported APIs
 
@@ -62,10 +53,12 @@ To use Oauth2 to authenticate your app using your Phorge installation,
 the following steps are required.
 
 1. Set `PHORGE_URL` in your .env as above
+
 2. Set `PHORGE_CLIENT_ID` in your .env to the client id you have registered in Phorge for this app
+
 3. Set `PHORGE_CLIENT_SECRET` in your .env to the corresponding secret for your app.
-4. Set `PHORGE_CALLBACK_URL` in your .env to a callback URL within your application for accepting logins.
-5. Add the following into app/Providers/EventServiceProvider.php
+
+4. Add the following into app/Providers/EventServiceProvider.php
 
 ```php
 ...
@@ -79,7 +72,7 @@ the following steps are required.
 ...
 ```
 
-6. Add the following into app/Providers/AppServiceProvider.php
+5. Add the following into app/Providers/AppServiceProvider.php
 
 ```php
 use Laravel\Socialite\Contracts\Factory;
@@ -100,53 +93,31 @@ use Pharavel\Socialite\Provider as PhorgeSocialiteProvider
 ...
 ```
 
-7. Add the following into config/services.php:
+6. Routes for `/auth/phorge/redirect` and `/auth/phorge/callback` are predefined
+   by this package.  For convenience, the redirect route has a name
+   of "phorgeLogin" predefined so you can link a "Login with Phorge" button
+   to it. If you want automatic login (always via Phorge, no other
+   authentication methods), then you should define a login route with a
+   name of "login" assigned, using the redirectToPhorge method of
+   Pharavel\Socialite\LoginController.
 
 ```php
-'phorge' => [
-    'client_id' => env('PHORGE_CLIENT_ID'),
-    'client_secret' => env('PHORGE_CLIENT_SECRET'),
-    'redirect' => 'PHORGE_CALLBACK_URL',
-],
-```
-where the redirect URL is replaced by a URL within your app to accept logins.
+use Pharavel\Socialite\LoginController;
 
-8. Add the service providers to config/app.php
+...
 
-```php
-    'providers' => [
-       
-       ...
-       
-       Laravel\Socialite\SocialiteServiceProvider::class,
-       Pharavel\Socialite\AuthServiceProvider::class,
-       
-       ...
-    ],
-
-    
-    'aliases' => Facade::defaultAliases()->merge([
-       
-       ...
-       
-       'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-       
-       ...
-
-    ])->toArray(),
+Route::get('/auth/redirect', [LoginController::class, 'redirectToPhorge']);
 
 ```
 
-9. Add the phorge auth driver to config/auth.php
-   (comment out the database driver if it is there)
 
-```php
-    'providers' => [
-        'users' => [
-            'driver' => 'phorge',
-        ],
-    ],
-```
+This should give you login via Phorge.  When any page is accessed that
+requires "auth" middleware, you will be redirected to Phorge where you
+will be shown a prompt that your app wants to use Phorge credentials.
+The first connection will be a bit more detailed in asking for
+permission.  After clicking through, the Phorge User will be available
+as Auth:user(), with attributes nickname (user id), name (full name),
+email, avatar (URL to image), phid (phid of user).
 
-10. Add the two routes as described in https://laravel.com/docs/9.x/socialite#authentication (the callback is the same as the redirect URL above.
-
+The phid in particular can be useful for use in Guards, using the API
+above to check project membership.

@@ -22,5 +22,14 @@
         "psr-4": {
             "Pharavel\\": "src/"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Pharavel\\Socialite\\AuthServiceProvider",
+            ],
+            "aliases": {
+            }
+        }
     }
 }
