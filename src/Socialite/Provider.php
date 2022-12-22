@@ -3,7 +3,7 @@ namespace Pharavel\Socialite;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use Laravel\Socialite\Two\AbstractProvider;
+use SocialiteProviders\Manager\OAuth2\AbstractProvider;
 use Pharavel\Socialite\User;
 
 class Provider extends AbstractProvider
@@ -69,10 +69,5 @@ class Provider extends AbstractProvider
             'email'    => $user['primaryEmail'],
             'avatar'   => $user['image'],
         ]);
-    }
-
-    public static function additionalConfigKeys()
-    {
-        return [];
-    }
+    }xs
 }
