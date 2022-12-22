@@ -13,6 +13,9 @@ class AuthServiceProvider extends BaseProvider
     public function register()
     {
         $this->mergeConfigFrom(
+            __DIR__.'/../config/auth_providers.php', 'auth.providers',
+        );
+        $this->mergeConfigFrom(
             __DIR__.'/../config/phorge.php', 'phorge',
         );
         $this->mergeConfigFrom(
