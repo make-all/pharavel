@@ -17,10 +17,10 @@ class Phorge
     public function __construct()
     {
         $this->guzzle = new Client([
-            'base_uri' => env('PHORGE_URL').'api/',
+            'base_uri' => config('app.phorge_url').'api/',
             'http_errors' => true,
         ]);
-        $this->token = env('PHORGE_TOKEN');
+        $this->token = config('app.phorge_token');
     }
 
     /**

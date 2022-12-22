@@ -4,10 +4,24 @@ Access Phorge (or Phabricator) resources from Laravel applications.
 
 ## Usage
 
-Define the following variables in your .env file.
+1. Define the following variables in your .env file.
 
 - PHORGE_URL = the base URL of your Phorge or Phabricator installation
 - PHORGE_TOKEN = a Conduit API token for a Bot account that has the required access to the objects you want to work with.
+
+2. Add the following to your config/app.php file
+
+```php
+return [
+
+    ...
+    
+    'phorge_url' => env('PHORGE_URL'),
+    'phorge_token' => env('PHORGE_TOKEN'),
+    
+    ...
+];
+```
 
 ## Supported APIs
 
