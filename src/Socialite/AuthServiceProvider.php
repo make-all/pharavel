@@ -14,6 +14,8 @@ class AuthServiceProvider extends BaseProvider
     {
         $this->mergeConfigFrom(
             __DIR__.'/../config/phorge.php', 'phorge',
+        );
+        $this->mergeConfigFrom(
             __DIR__.'/../config/services.php', 'services',
         );
     }
