@@ -70,4 +70,9 @@ class Provider extends AbstractProvider
             'avatar'   => $user['image'],
         ]);
     }
+
+    public static function additionalConfigKeys()
+    {
+        return [];
+    }
 }
