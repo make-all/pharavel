@@ -97,5 +97,42 @@ use Pharavel\Socialite\Provider as PhorgeSocialiteProvider
 ```
 where the redirect URL is replaced by a URL within your app to accept logins.
 
-8. Add the two routes as described in https://laravel.com/docs/9.x/socialite#authentication (the callback is the same as the redirect URL above.
+8. Add the service providers to config/app.php
+
+```php
+    'providers' => [
+       
+       ...
+       
+       Laravel\Socialite\SocialiteServiceProvider::class,
+       Pharavel\Socialite\AuthServiceProvider::class,
+       
+       ...
+    ],
+
+    
+    'aliases' => Facade::defaultAliases()->merge([
+       
+       ...
+       
+       'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+       
+       ...
+
+    ])->toArray(),
+
+```
+
+9. Add the phorge auth driver to config/auth.php
+   (comment out the database driver if it is there)
+
+```php
+    'providers' => [
+        'users' => [
+            'driver' => 'phorge',
+        ],
+    ],
+```
+
+10. Add the two routes as described in https://laravel.com/docs/9.x/socialite#authentication (the callback is the same as the redirect URL above.
 
