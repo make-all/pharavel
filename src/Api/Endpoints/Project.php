@@ -47,7 +47,7 @@ class Project
     public function isMemberOf($project)
     {
         $uid = Auth::user()->nickname;
-        $projects = $this->search(['name' => $project, 'members' => [$uid]]);
+        $projects = $this->search(['constraints' => ['name' => $project, 'members' => [$uid]]]);
         return count($projects) > 0;
     }
 
@@ -64,7 +64,7 @@ class Project
     public function isMemberOfPhid($project)
     {
         $uid = Auth::user()->nickname;
-        $projects = $this->search(['phids' => [$project], 'members' => [$uid]]);
-        return count($projects) > 0;
+        $projects = $this->search(["constraints" => ['phids' => [$project], 'members' => [$uid]]]);
+        return is_array($projects) && count($projects) > 0;
     }
 }
