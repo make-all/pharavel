@@ -3,7 +3,7 @@ namespace Pharavel\Api\Endpoints;
 
 use Pharavel\Api\Phorge;
 
-class Markup
+class Remarkup
 {
     protected $client;
 
@@ -13,13 +13,21 @@ class Markup
     }
 
     /**
+     * Process text through remarkup.
+     * @param array $params
+     * @return array
+     */
+    public function process($params)
+    {
+        return $this->client->post('remarkup.process', $params);
+    }
+
+    /**
      * Convert Remarkup to HTML
      */
     public function html($markup)
     {
-        $html = $this->client->post('remarkup.process', [
-            'context' => 'feed', 'contents' => [$markup]
-        ]);
+        $html = $this->process(['context' => 'feed', 'contents' => [$markup]]);
         $txt = '';
         foreach ($html as $h)
         {

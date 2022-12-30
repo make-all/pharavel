@@ -15,6 +15,35 @@ class User
         $this->client = $client;
     }
 
+    /**
+     * Search for a user.
+     *
+     * @param array $params
+     * @return array
+     */
+    public function search($params)
+    {
+        return $this->client->post('user.search', $params);
+    }
+
+    /*
+     * user.edit is available in conduit, but of limited use, as users in
+     * Phorge are limited to editing their own details (ie the API token owner).
+     */
+
+    /**
+     * Return information about the token owner.
+     *
+     * This is of limited use due to the fact that the user that owns the
+     * API token is the one authenticated for the API.
+     * Unlike most methods, this one will also work with a session token
+     * instead of an api token, but to use it like that, you should use
+     * auth()->user() after authenticating with OAuth2 using this package's
+     * Socialite provider.
+     *
+     * Other than the email address, the information should be the same as
+     * returned by user.search.
+     */
     public function whoAmI()
     {
         return $this->client->post('user.whoami');

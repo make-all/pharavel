@@ -29,6 +29,12 @@ class Project
         return $this->client->post('project.search', $params);
     }
 
+    /**
+     * Edit a project
+     *
+     * @param array $params
+     * @return array
+     */
     public function edit($params)
     {
         return $this->client->post('project.edit', $params);

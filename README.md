@@ -16,36 +16,56 @@ project membership.
 
 ## Supported APIs
 
-### User
+The full modern Phorge Conduit API as at December 2022 is supported.  Frozen
+APIs are not supported, as there are modern API replacements for those.
+Non-frozen legacy API functions without modern replacements are generally
+supported.
 
-#### user.whoami
-User->whoAmI() - returns the details of the user owning the token.
-    Return value contains information about the user.  Since this
-    is always the user that owns the API token, it is probably only
-    useful for testing the API configuration (since this function does
-    not need any parameters)
+As an example, the search and edit functions of project are supported as:
 
 ### Project
 
 #### project.search
-Project.search(params) - searches for projects based on params.
-    params is an associative array of name value pairs, as described in the
+Project.search($params) - searches for projects based on $params.
+    $params is an associative array of name value pairs, as described in the
     conduit documentation.
     Return value is a list of matching objects.
 
 #### project.edit
-Project.edit(params) - edits a project with params.
-    params is an associated array of name value pairs, as described in the
+Project.edit($params) - edits a project with $params.
+    $params is an associative array of name value pairs, as described in the
     conduit documentation.  Specify "objectIdentifier" to edit an existing
     project, otherwise a new project will be created using the parameters.
     Return value contains the phids of objects affected.
 
-### Markup
+## Convenience API functions
 
-#### remarkup.process
-Markup.html(text) - convert remarkup text to html.
-    text is a string containing the content to convert to html.
-    Return value is a string containing html.
+Some convenience functions have been added that wrap API functions with
+some parameters already provided, and the normal single array map parameter
+replaced by more natural parameters.
+
+### Remarkup
+
+#### Remarkup.html($text)
+
+remarkup.process with context set to feed (so not application specific)
+and the `$text` provided will be sent as contents.  Return value will be
+a string containing html.
+
+### Project
+
+#### Project.isMemberOf($project)
+
+project.search which takes a username from the logged in user's nickname
+attribute (if you are using OAuth2 login from this package, then this will be
+populated with the user id), and does a search of projects with the name
+`$project` that have that user as a member.
+
+#### Project.isMemberOfPhid($phid)
+
+as above, but takes a phid instead of a name for the project to check.  This
+should provide a more stable result than the above, as the name is editable
+while the phid is not, so is guaranteed not to change over time.
 
 ## Using Oauth2 authentication from Phorge
 
