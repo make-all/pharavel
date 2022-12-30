@@ -2,9 +2,10 @@
 
 Access Phorge (or Phabricator) resources from Laravel applications.
 
-Currently this provides minimal access to the Conduit API, focused on
-the use case of authentication and authorization of users based on
-project membership.
+There are two aspects to this package:
+1. Conduit API access via guzzlehttp using a PHP native syntax.
+2. OAuth2 authentication to you Laravel app using the Phorge/Phabricator
+   server.
 
 
 ## Usage
@@ -17,26 +18,27 @@ project membership.
 ## Supported APIs
 
 The full modern Phorge Conduit API as at December 2022 is supported.  Frozen
-APIs are not supported, as there are modern API replacements for those.
+APIs however are not supported, as there are modern API replacements for those.
 Non-frozen legacy API functions without modern replacements are generally
 supported.
 
 As an example, the search and edit functions of project are supported as:
 
-### Project
+In some contexts, the Phorge api will be automatically injected if you declare
+a parameter `Pharavel\Api\Phorge $phorge`.  In others you may need to use
+```php
+  $phorge = app()->make(Pharavel\Api\Phorge::class);
+```
 
 #### project.search
-Project.search($params) - searches for projects based on $params.
-    $params is an associative array of name value pairs, as described in the
-    conduit documentation.
-    Return value is a list of matching objects.
+`$phorge->project()->search($params)` - searches for projects based on $params.
+ - $params is an associative array of name value pairs, as described in the conduit documentation.
+ - Return value is a list of matching objects.
 
 #### project.edit
-Project.edit($params) - edits a project with $params.
-    $params is an associative array of name value pairs, as described in the
-    conduit documentation.  Specify "objectIdentifier" to edit an existing
-    project, otherwise a new project will be created using the parameters.
-    Return value contains the phids of objects affected.
+`$phorge->project()->edit($params)` - edits a project with $params.
+ - $params is an associative array of name value pairs, as described in the conduit documentation.  Specify "objectIdentifier" to edit an existing project, otherwise a new project will be created using the parameters.
+ - Return value contains the phids of objects affected.
 
 ## Convenience API functions
 
@@ -46,7 +48,7 @@ replaced by more natural parameters.
 
 ### Remarkup
 
-#### Remarkup.html($text)
+`$html = $phorge->remarkup()->html($text)`
 
 remarkup.process with context set to feed (so not application specific)
 and the `$text` provided will be sent as contents.  Return value will be
@@ -54,14 +56,14 @@ a string containing html.
 
 ### Project
 
-#### Project.isMemberOf($project)
+`$isMember = $phorge->project()->isMemberOf($project)`
 
 project.search which takes a username from the logged in user's nickname
 attribute (if you are using OAuth2 login from this package, then this will be
 populated with the user id), and does a search of projects with the name
 `$project` that have that user as a member.
 
-#### Project.isMemberOfPhid($phid)
+`$isMember = $phorge->project()->isMemberOfPhid($phid)`
 
 as above, but takes a phid instead of a name for the project to check.  This
 should provide a more stable result than the above, as the name is editable
@@ -113,13 +115,14 @@ use Pharavel\Socialite\Provider as PhorgeSocialiteProvider
 ...
 ```
 
-6. Routes for `/auth/phorge/redirect` and `/auth/phorge/callback` are predefined
-   by this package.  For convenience, the redirect route has a name
+6. Routes for `/auth/phorge/redirect` and `/auth/phorge/callback` are
+   predefined by this package.  For convenience, the redirect route has a name
    of "phorgeLogin" predefined so you can link a "Login with Phorge" button
-   to it easily. If you want automatic login (always via Phorge, no other
-   authentication methods), then you should define a route with a
-   name of "login" assigned, using the redirectToPhorge method of
-   Pharavel\Socialite\LoginController.
+   to it easily.
+   
+   If you want automatic login (always via Phorge, no other authentication
+   methods), then you should define a route with a name of "login" assigned,
+   using the redirectToPhorge method of Pharavel\Socialite\LoginController.
 
 ```php
 use Pharavel\Socialite\LoginController;
