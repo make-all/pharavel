@@ -150,7 +150,7 @@ class Phorge
                 return new Pharavel\Endpoints\Phurls($this);
             case 'portal':
                 return new Pharavel\Endpoints\Portal($this);
-            case 'project.column":
+            case 'project.column':
                 return new Pharavel\Endpoints\ProjectColumn($this);
             case 'project':
                 return new Pharavel\Endpoints\Project($this);
