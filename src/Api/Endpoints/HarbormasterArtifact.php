@@ -3,7 +3,7 @@ namespace Pharavel\Api\Endpoints;
 
 use Pharavel\Api\Phorge;
 
-class HarbourmasterArtifact
+class HarbormasterArtifact
 {
     /**
      * The client
