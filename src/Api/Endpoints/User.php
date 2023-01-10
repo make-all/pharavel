@@ -48,4 +48,17 @@ class User
     {
         return $this->client->post('user.whoami');
     }
+
+    /**
+     * Query users.  DEPRECATED.
+     *
+     * Although this is a deprecated method, replaced by search, it allows
+     * querying users by email address, which search does not.
+     * Depending on context, this may be the piece of info we have already
+     * in the external application that identifies the user.
+     */
+    public function query($params)
+    {
+        return $this->client->post('user.query', $params);
+    }
 }
