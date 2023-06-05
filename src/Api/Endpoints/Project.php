@@ -53,7 +53,7 @@ class Project
     public function isMemberOf($project)
     {
         $uid = Auth::user()->nickname;
-        $projects = $this->search(['constraints' => ['name' => $project, 'members' => [$uid]]]);
+        $projects = $this->search(['constraints' => ['query' => "title:={$project}", 'members' => [$uid]]]);
         return count($projects) > 0;
     }
 
