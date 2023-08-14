@@ -3,9 +3,11 @@
 namespace Pharavel\Socialite;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Routing\Controller;
 use Laravel\Socialite\Facades\Socialite;
+use Laravel\Socialite\Two\InvalidStateException;
 
 class LoginController extends Controller
 {
@@ -25,10 +27,16 @@ class LoginController extends Controller
 	 * return Illuminate\Http\Response
 	 */
 	public function handlePhorgeCallback()
-	{
-	    $user = Socialite::driver('phorge')->user();
-        Auth::login($user);
-        Session::regenerate();
-		return redirect()->intended('/');
-	}
+    {
+        try {
+	        $user = Socialite::driver('phorge')->user();
+            Auth::login($user);
+            Session::regenerate();
+        }
+        catch (InvalidStateException $e) {
+            $msg = $e.getMessage();
+            Log::Warning("Invalid OAuth2 login state: {$msg}");
+        }
+	    return redirect()->intended('/');
+    }
 }
