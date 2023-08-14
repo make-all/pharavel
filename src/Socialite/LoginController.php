@@ -34,8 +34,7 @@ class LoginController extends Controller
             Session::regenerate();
         }
         catch (InvalidStateException $e) {
-            $msg = $e.getMessage();
-            Log::Warning("Invalid OAuth2 login state: {$msg}");
+            Log::Warning("Invalid OAuth2 login state: {$e->getMessage()}");
         }
 	    return redirect()->intended('/');
     }
