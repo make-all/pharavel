@@ -13,10 +13,10 @@
         "source":  "https://github.com/make-all/pharavel"
     },
     "require": {
-        "guzzlehttp/guzzle": "^7.2",
-        "laravel/framework": "^9.0",
-        "laravel/socialite": "^5.0",
-        "socialiteproviders/manager": "^4.2"
+        "guzzlehttp/guzzle": "^7.9",
+        "laravel/framework": "^10.0",
+        "laravel/socialite": "^5.6",
+        "socialiteproviders/manager": "^4.3"
     },
     "autoload": {
         "psr-4": {
