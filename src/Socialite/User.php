@@ -23,6 +23,12 @@ class User extends SocialiteUser implements Authenticatable
         return "D0esN0tNeedPassw0rd!";
     }
 
+    public function getAuthPasswordName()
+    {
+        // direct passwords not supported, but return a dummy value
+        return "password";
+    }
+
     public function getRememberToken()
     {
         return "";

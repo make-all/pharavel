@@ -14,9 +14,9 @@
     },
     "require": {
         "guzzlehttp/guzzle": "^7.9",
-        "laravel/framework": "^10.0",
-        "laravel/socialite": "^5.6",
-        "socialiteproviders/manager": "^4.3"
+        "laravel/framework": "^11.0",
+        "laravel/socialite": "^5.11",
+        "socialiteproviders/manager": "^4.5"
     },
     "autoload": {
         "psr-4": {

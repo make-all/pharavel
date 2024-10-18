@@ -38,4 +38,9 @@ class UserProvider implements BaseProvider
     {
         return false;
     }
+
+    public function rehashPasswordIfRequired(Authenticatable $user, $password)
+    {
+        // password hashing not supported
+    }
 }
