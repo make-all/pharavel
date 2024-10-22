@@ -22,13 +22,13 @@ APIs however are not supported, as there are modern API replacements for those.
 Non-frozen legacy API functions without modern replacements are generally
 supported.
 
-As an example, the search and edit functions of project are supported as:
-
 In some contexts, the Phorge api will be automatically injected if you declare
 a parameter `Pharavel\Api\Phorge $phorge`.  In others you may need to use
 ```php
   $phorge = app()->make(Pharavel\Api\Phorge::class);
 ```
+
+As an example, the search and edit functions of project are supported as:
 
 #### project.search
 `$phorge->project()->search($params)` - searches for projects based on $params.
@@ -132,6 +132,13 @@ use Pharavel\Socialite\LoginController;
 Route::get('/auth/redirect', [LoginController::class, 'redirectToPhorge']);
 
 ```
+
+7. This package defines an auth provider named "phorge" which you can use
+by modifying config/auth.php to use this provider in the "web" guard config.
+Alternatively you may override the default "users" provider to use the
+phorge driver. Previous versions overrode the "users" provider for you
+automatically, but this is no longer possible in Laravel 11 due to changes
+in the way default config is handled.
 
 
 This should give you login via Phorge.  When any page is accessed that
