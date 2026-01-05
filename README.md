@@ -4,9 +4,9 @@ Access Phorge (or Phabricator) resources from Laravel applications.
 
 There are two aspects to this package:
 1. Conduit API access via guzzlehttp using a PHP native syntax.
-2. OAuth2 authentication to you Laravel app using the Phorge/Phabricator
-   server.
+2. OAuth2 authentication to your Laravel app using the Phorge/Phabricator server.
 
+The current version is tested on Laravel 12. Some older versions of Laravel may be supported by tagged versions in the repository.
 
 ## Usage
 
@@ -74,11 +74,13 @@ while the phid is not, so is guaranteed not to change over time.
 To use Oauth2 to authenticate your app using your Phorge installation,
 the following steps are required.
 
-1. Set `PHORGE_URL` in your .env as above
+1. Create an OauthServer app in Phorge, using APP_BASE/auth/phorge/callback as the redirect URL.
 
-2. Set `PHORGE_CLIENT_ID` in your .env to the client id you have registered in Phorge for this app
+2. Set `PHORGE_URL` in your .env as above
 
-3. Set `PHORGE_CLIENT_SECRET` in your .env to the corresponding secret for your app.
+3. Set `PHORGE_CLIENT_ID` in your .env to the client id assigned by Phorge in step 1
+
+4. Set `PHORGE_CLIENT_SECRET` in your .env to the corresponding secret generated in step 1
 
 4. Add the following into app/Providers/EventServiceProvider.php
 
